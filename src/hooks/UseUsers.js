@@ -9,7 +9,7 @@ const UseUsers =() =>{
 
     const handSubmit =(values) =>{
         setLoading(true)
-        if(values.username =='vargas' && selectedLanguage==1 ){
+        if(values.username =='santiago' && selectedLanguage==1 ){
             setRol(1)
             setTimeout(() =>{
                  setState('hola')
