@@ -24,12 +24,17 @@ const UseValidation =() =>{
             .required('required')
         })
 
+    const to ="((?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*\W)\w.{6,18}\w)"
+
+    const re = to.tes
+
     const LoginSchema = Yup.object().shape({
             username: Yup.string()
                 .min(5, 'min 5!')
                 .required('requeired'),
             password: Yup.string()
                 .min(5, 'Min 5!')
+                .matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,"Password must contain at least 8 characters, one uppercase, one number and one special case character")
                 .required('requeired'),
             });
             
@@ -54,26 +59,24 @@ const UseValidation =() =>{
     })
 
 
-    const handQuestion = Yup.object().shape({   
-            questionOne:Yup.string()
+    const handSend = Yup.object().shape({   
+            numero_name:Yup.number()
             .min(5,'min must 5')
             .required('requerid'),
-            questionTwo:Yup.string()
+            identification:Yup.number()
             .min(5,'min must 5')
             .required('requerid'),
-            questionThree:Yup.string()
+            titular:Yup.string()
             .min(5,'min must 5')
             .required('requerid'),
-            questionFour:Yup.string()
-            .min(5,'min must 5')
-            .required('requerid'),
-            questionFive:Yup.string()
-            .min(5,'min must 5')
+            saldo:Yup.number()
+            .min(1000000,'min must ')
+            .max(1000000000)
             .required('requerid'),
         })
 
 
-    return {RegisterSchema,LoginSchema,PersonSchema,handQuestion}
+    return {RegisterSchema,LoginSchema,PersonSchema,handSend}
 
 }
 

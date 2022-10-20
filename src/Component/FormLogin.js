@@ -1,32 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {TextInput,View,ActivityIndicator,TouchableOpacity,Text,StyleSheet,ScrollView} from 'react-native'
 import {Formik} from 'formik'
 import UseUsers from '../hooks/UseUsers'
 import UseValidation from '../hooks/UseValidation'
 import Icon from 'react-native-vector-icons/AntDesign'
+import {Picker} from '@react-native-picker/picker';
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view"
 
 const FomrLogin =() =>{
 
-    const {loading,handSubmit} = UseUsers() 
+    const {loading,handSubmit,selectedLanguage, setSelectedLanguage} = UseUsers() 
     const {LoginSchema} = UseValidation()
-   
+    
     return (
-       <ScrollView style={{paddingVertical: "50%"}} >
+       <KeyboardAwareScrollView style={{paddingVertical: "20%"}} >
         <Formik 
                 initialValues={{username:"",
                                 password:""}}
                         validationSchema={LoginSchema}
                         onSubmit={(e) =>handSubmit(e)}>
-                            {({handleChange,handleSubmit,values,handleBlur,setFieldValue}) =>(
+                            {({handleChange,handleSubmit,values,handleBlur,setFieldValue,errors}) =>(
                                 <View  style={{
                                         width: '100%',
                                         height: '100%',
                                         position: 'relative',
                                         flexDirection:"column",
                                         justifyContent:"center",}} >
-                               
-                                {values.username.length>0 && (<Icon style={styles.clearOne} onPress={() =>setFieldValue('username','')} name='closecircle' />)}
-                                {values.password.length>0 && (<Icon style={styles.clearTwo} onPress={() =>setFieldValue('password','')} name='closecircle' />)}
+
                                  <Text style={{marginLeft:55,color:"gray",margin:15}}>INICIAR SESION</Text>   
                                  <TextInput 
                                 placeholder='CELULAR' 
@@ -36,6 +36,18 @@ const FomrLogin =() =>{
                                 onBlur={handleBlur('username')}
                                 onChangeText={handleChange('username')}  
                         />
+                        {errors.username && <Text style={{textAlign:"center",color:"red" }} >Usuario no Registrado</Text>}
+                        
+                        <Picker
+                            style={{paddingHorizontal:50}}
+                            selectedValue={selectedLanguage}
+                            onValueChange={(itemValue, itemIndex) =>
+                                setSelectedLanguage(itemValue)
+                            }>
+                                <Picker.Item label="Rol" value="" />
+                            <Picker.Item label="Administractivo" value="1" />
+                            <Picker.Item label="Usuario" value="2" />
+                            </Picker>
 
                         <TextInput  
                                     placeholder='CONTRASEÑA'
@@ -46,18 +58,19 @@ const FomrLogin =() =>{
                                     onBlur={handleBlur('password')}
                                     onChangeText={handleChange('password')}
                                     />
+                        {errors.password && <Text style={{textAlign:"center",color:"red" }} >Contraseña Invalida</Text>}
                         {!loading ? (
                             <View style={{alignContent:"center",alignItems:"center",marginTop:30}}>
                             <TouchableOpacity style={styles.button} onPress={handleSubmit}  >
                                 <Text style={{color:"white",fontWeight:"600"}}>ENTRAR</Text>
                             </TouchableOpacity> 
                             </View>  
-                          
+                            
                             ): <ActivityIndicator color='black' size={60}/>}
                             </View>   
                             )}
                 </Formik>
-           </ScrollView>
+           </KeyboardAwareScrollView>
     )
 }
 export default FomrLogin
@@ -65,24 +78,21 @@ export default FomrLogin
 
 const styles =  StyleSheet.create({
      input:{
-        height:50,
+        height:40,
         margin:3,
         borderWidth:1,
-        borderRadius:10,
-        padding:10,
+        padding:5,
         marginLeft:50,
         marginRight:50,
-        color:"black",
-        borderColor:"orange"
+        color:"black"
     },
         button: {
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 20,
         paddingHorizontal: 5,
-        borderRadius:10,
         elevation: 1,
-        backgroundColor: '#ed7f3d',
+        backgroundColor: 'black',
         margin:12,
         width:"75%",
          
@@ -105,4 +115,7 @@ const styles =  StyleSheet.create({
     padding:10,
     color:"orange"
     },
+    select:{
+        margin:200
+    }
 })

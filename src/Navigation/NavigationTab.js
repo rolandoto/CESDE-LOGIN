@@ -2,6 +2,8 @@ import React,{useEffect} from 'react'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Panel from '../Screens/Panel'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import Account from '../Screens/Account'
+import Movimiento from '../Screens/Movimiento'
 
 const Tab = createBottomTabNavigator()
 
@@ -19,22 +21,25 @@ const NavigationTitle =(props) =>{
     },[])
 
     return(
-        <Tab.Navigator initialRouteName='panel'>
-            <Tab.Screen name='panel' component={Panel} 
+        <Tab.Navigator initialRouteName='account' >
+            <Tab.Screen name='panel' component={Account}
             options={{
-                  tabBarLabel:"INICIO",
-                 tabBarIcon:({color,size}) => <Icon name='heart'  color={color} size={size}  />
-            }} />  
-            <Tab.Screen name='ro' component={Panel} 
+                  tabBarLabel:"Iniciar sesion",
+                  tabBarIcon:({color,size}) =><Icon name="user" color={color} size={size}  /> 
+            }} 
+             />  
+            <Tab.Screen name='account' component={Account} 
             options={{
-                  tabBarLabel:"SUPPORT",
-                 tabBarIcon:({color,size}) => <Icon name='heart'  color={color} size={size}  />
-            }} />  
-            <Tab.Screen name='re' component={Panel} 
+                tabBarLabel:"Cuentas",
+                tabBarIcon:({color,size}) =><Icon name="user" color={color} size={size}  /> 
+            }} 
+             />  
+            <Tab.Screen name="Movimiento" component={Movimiento} 
             options={{
-                  tabBarLabel:"PERFIL",
-                 tabBarIcon:({color,size}) => <Icon name='user'  color={color} size={size}  />
-            }} />  
+                  tabBarLabel:"Movimiento",
+                  tabBarIcon:({color,size}) =><Icon name="user" color={color} size={size}  /> 
+            }} 
+            />  
         </Tab.Navigator>
     )
 } 

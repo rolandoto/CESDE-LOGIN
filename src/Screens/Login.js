@@ -5,13 +5,7 @@ import FomrLogin from '../Component/FormLogin'
 const LoginForm =(props) =>{
 
     const {navigation}  = props
-    const logo ='https://github.com/rolandoto/gifs-complete/blob/mora/src/Imagenes/Img_Elda/img_logo%20Grande.png?raw=true'
-    
-    useEffect(() =>{
-        navigation.setOptions({
-            headerLeft:() =>  <Image style={styles.icon} source={{uri:logo}} />
-        })
-    },[])
+   
     
     
     return (
